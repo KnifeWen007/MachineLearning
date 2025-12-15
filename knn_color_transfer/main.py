@@ -22,7 +22,7 @@ def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
     parser.add_argument("--source",
                         type=str,
-                        default=os.path.join(base_dir, "data/source/730x576x2.jpg"),  # 默认使用 source/fushishan.jpg
+                        default=os.path.join(base_dir, "data/source/fushishan.jpg"),  # 默认使用 source/fushishan.jpg
                         help="路径: 待转换的目标图像")
     parser.add_argument("--reference",
                         type=str,

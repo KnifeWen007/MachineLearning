@@ -22,7 +22,7 @@ def main():
                         help="路径: 待转换的目标图像")
     parser.add_argument("--reference",
                         type=str,
-                        default=os.path.join(base_dir, "data/reference/grass.jpg"),
+                        default=os.path.join(base_dir, "data/reference/boat.jpg"),
                         help="路径: 风格参考图像")
     parser.add_argument("--output",
                         type=str,

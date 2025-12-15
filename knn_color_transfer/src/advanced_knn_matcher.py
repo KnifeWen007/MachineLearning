@@ -22,7 +22,7 @@ class AdvancedKNNColorMatcher:
 
     def _extract_windows(self, img_lab):
         """
-        从Lab图像中提取窗口特征
+        从Lab图像中提取窗口特征（完全向量化版本）
         """
         H, W, C = img_lab.shape
         size = self.window_size
@@ -30,21 +30,28 @@ class AdvancedKNNColorMatcher:
         # 提取L通道作为特征
         l_channel = img_lab[:, :, 0]
         
-        # 存储窗口特征和对应的ab值
-        features = []
-        ab_values = []
+        # 使用滑动窗口视图技术提取所有窗口
+        window_size = 2 * size + 1
         
-        # 枚举所有可能的中心点
-        for x in range(size, H - size):
-            for y in range(size, W - size):
-                # 提取窗口区域的L值作为特征
-                window = l_channel[x - size:x + size + 1, y - size:y + size + 1]
-                features.append(window.flatten())
-                
-                # 保存中心像素的ab值
-                ab_values.append(img_lab[x, y, 1:])
-                
-        return np.array(features), np.array(ab_values)
+        # 创建滑动窗口视图
+        shape = (H - 2 * size, W - 2 * size, window_size, window_size)
+        strides = l_channel.strides + l_channel.strides
+        window_view = np.lib.stride_tricks.as_strided(
+            l_channel, 
+            shape=shape, 
+            strides=strides
+        )
+        
+        # 展平窗口特征
+        features = window_view.reshape(-1, window_size * window_size)
+        
+        # 提取对应的ab值
+        center_indices_x = np.arange(size, H - size)
+        center_indices_y = np.arange(size, W - size)
+        xx, yy = np.meshgrid(center_indices_x, center_indices_y, indexing='ij')
+        ab_values = img_lab[xx, yy, 1:].reshape(-1, 2)
+        
+        return features, ab_values
 
     def build_model(self, ref_image_lab):
         """
@@ -93,12 +100,20 @@ class AdvancedKNNColorMatcher:
         # 重构图像
         new_image_lab = np.copy(target_image_lab)
         
-        # 填充内部区域的颜色（边界区域保持原样）
-        idx = 0
-        for x in range(size, H - size):
-            for y in range(size, W - size):
-                new_image_lab[x, y, 1:] = new_ab[idx]
-                idx += 1
+        # 向量化填充内部区域的颜色（边界区域保持原样）
+        # 创建索引网格
+        x_indices, y_indices = np.meshgrid(
+            np.arange(size, H - size),
+            np.arange(size, W - size),
+            indexing='ij'
+        )
+        
+        # 展平索引
+        flat_x_indices = x_indices.ravel()
+        flat_y_indices = y_indices.ravel()
+        
+        # 向量化赋值
+        new_image_lab[flat_x_indices, flat_y_indices, 1:] = new_ab.reshape(-1, 2)
                 
         return new_image_lab
 
