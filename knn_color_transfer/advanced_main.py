@@ -22,11 +22,11 @@ def main():
                         help="路径: 待转换的目标图像")
     parser.add_argument("--reference",
                         type=str,
-                        default=os.path.join(base_dir, "data/reference/boat.jpg"),
+                        default=os.path.join(base_dir, "data/reference/grass.jpg"),
                         help="路径: 风格参考图像")
     parser.add_argument("--output",
                         type=str,
-                        default=os.path.join(base_dir, "data/output/advanced_transferred_image.png"),
+                        default=os.path.join(base_dir, "data/output/advanced_transferred_image2.png"),
                         help="路径: 结果图像保存路径")
     
     # 算法参数

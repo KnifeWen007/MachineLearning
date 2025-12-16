@@ -96,9 +96,10 @@ python advanced_main.py --source data/source/730x576x2.jpg --reference data/refe
 
 ## 示例结果
 
-| 源图像                               | 参考图像                             | 迁移结果                                            |
-| ------------------------------------ | ------------------------------------ | --------------------------------------------------- |
-| ![源图像](data/source/730x576x2.jpg) | ![参考图像](data/reference/boat.jpg) | ![结果](data/output/advanced_transferred_image.png) |
+| 源图像                               | 参考图像                              | 迁移结果                                               |
+| ------------------------------------ |-----------------------------------|----------------------------------------------------|
+| ![源图像](data/source/730x576x2.jpg) | ![参考图像](data/reference/boat.jpg)  | ![结果](data/output/advanced_transferred_image.png)  |
+| ![源图像](data/source/730x576x2.jpg) | ![参考图像](data/reference/grass.jpg) | ![结果](data/output/advanced_transferred_image2.png) |
 
 ## 注意事项
 
