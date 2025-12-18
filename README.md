@@ -8,8 +8,9 @@
 MachineLearning/
 ├── knn_color_transfer/     # KNN 颜色迁移项目
 ├── environment.yml         # Conda 环境配置文件
-├── README.md              # 本文件
-└── Test.ipynb             # 测试笔记本
+├── README.md              # 根目录说明文件
+├── Test.ipynb             # 测试笔记本
+└── .gitignore             # Git忽略文件配置
 ```
 
 ## 环境搭建
@@ -70,3 +71,12 @@ conda env update -f environment.yml --prune
 ## 贡献
 
 欢迎提交 Issue 和 Pull Request 来改进这些项目。
+
+## 数据文件
+
+项目所需的数据文件可以通过以下百度网盘链接获取：
+
+链接: https://pan.baidu.com/s/1JsLRe1-_hoDo-R9dxc5GIw?pwd=ngnm
+提取码: ngnm
+
+请将下载的`knn_color_transfer_data`文件放置在 `knn_color_transfer/data/` 目录下，以便程序能够正确访问。
