@@ -4,16 +4,12 @@
 
 ## 项目简介
 
-本项目实现了两种基于 KNN（K-Nearest Neighbors）算法的颜色迁移方法：
+本项目实现了基于 KNN（K-Nearest Neighbors）算法的颜色迁移方法：
 
-1. **基础 KNN 颜色迁移** (`knn_matcher.py`)：
+**高级 KNN 颜色迁移** (`advanced_knn_matcher.py`)：
 
-   - 在 Lab 颜色空间中对每个像素进行颜色匹配
-   - 使用简单的像素级特征进行匹配
-
-2. **高级 KNN 颜色迁移** (`advanced_knn_matcher.py`)：
-   - 使用窗口级别的特征进行匹配（考虑周围像素信息）
-   - 可调节窗口大小，提供更好的迁移效果
+- 使用窗口级别的特征进行匹配（考虑周围像素信息）
+- 可调节窗口大小，提供更好的迁移效果
 
 ## 目录结构
 
@@ -24,37 +20,14 @@ knn_color_transfer/
 │   ├── reference/        # 参考图像目录
 │   └── output/           # 输出图像目录
 ├── src/
-│   ├── knn_matcher.py         # 基础 KNN 匹配器
 │   ├── advanced_knn_matcher.py # 高级 KNN 匹配器
-│   ├── processing.py          # 基础处理流程
 │   ├── color_utils.py         # 颜色空间转换工具
 │   └── __init__.py
-├── main.py              # 基础颜色迁移入口
 ├── advanced_main.py     # 高级颜色迁移入口
 └── README.md
 ```
 
 ## 使用方法
-
-### 基础颜色迁移
-
-```bash
-python main.py [--source SOURCE_PATH] [--reference REF_PATH] [--output OUTPUT_PATH] [-k K] [--sigma SIGMA]
-```
-
-参数说明：
-
-- `--source`: 源图像路径（待转换图像）
-- `--reference`: 参考图像路径（提供颜色风格的图像）
-- `--output`: 输出图像路径
-- `-k`: KNN 中的近邻数，默认为 10
-- `--sigma`: 高斯核函数标准差，默认为 50.0
-
-示例：
-
-```bash
-python main.py --source data/source/fushishan.jpg --reference data/reference/grass.jpg --output data/output/result.png
-```
 
 ### 高级颜色迁移
 
@@ -72,19 +45,17 @@ python advanced_main.py [--source SOURCE_PATH] [--reference REF_PATH] [--output 
 python advanced_main.py --source data/source/730x576x2.jpg --reference data/reference/boat.jpg --output data/output/advanced_result.png --window-size 2
 ```
 
+使用夏季森林和秋季森林图像的示例：
+
+```bash
+python advanced_main.py --source data/source/SummerForest.jpg --reference data/reference/AutumnForest.jpg --output data/output/advanced_transferred_image3.png --window-size 2
+```
+
 ## 算法原理
-
-### 基础 KNN 方法
-
-1. 将参考图像和目标图像都转换到 Lab 颜色空间
-2. 从参考图像中提取所有像素的 a、b 通道值作为训练样本
-3. 对目标图像中的每个像素，在参考样本中找到 K 个最相似的颜色
-4. 使用高斯核函数根据距离计算权重，对 K 个邻居的颜色进行加权平均
-5. 将计算出的新颜色应用到目标图像对应位置
 
 ### 高级 KNN 方法
 
-1. 在基础方法的基础上，不仅考虑单个像素的颜色值，还考虑其周围窗口内的亮度信息
+1. 不仅考虑单个像素的颜色值，还考虑其周围窗口内的亮度信息
 2. 使用滑动窗口提取特征，使得匹配更加符合人眼感知
 3. 通过调整窗口大小来控制考虑的上下文范围
 
@@ -96,10 +67,11 @@ python advanced_main.py --source data/source/730x576x2.jpg --reference data/refe
 
 ## 示例结果
 
-| 源图像                               | 参考图像                              | 迁移结果                                               |
-| ------------------------------------ |-----------------------------------|----------------------------------------------------|
-| ![源图像](data/source/730x576x2.jpg) | ![参考图像](data/reference/boat.jpg)  | ![结果](data/output/advanced_transferred_image.png)  |
-| ![源图像](data/source/730x576x2.jpg) | ![参考图像](data/reference/grass.jpg) | ![结果](data/output/advanced_transferred_image2.png) |
+| 源图像                                  | 参考图像                                     | 迁移结果                                             |
+| --------------------------------------- | -------------------------------------------- | ---------------------------------------------------- |
+| ![源图像](data/source/730x576x2.jpg)    | ![参考图像](data/reference/boat.jpg)         | ![结果](data/output/advanced_transferred_image.png)  |
+| ![源图像](data/source/730x576x2.jpg)    | ![参考图像](data/reference/grass.jpg)        | ![结果](data/output/advanced_transferred_image2.png) |
+| ![源图像](data/source/SummerForest.jpg) | ![参考图像](data/reference/AutumnForest.jpg) | ![结果](data/output/advanced_transferred_image3.png) |
 
 ## 注意事项
 

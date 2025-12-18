@@ -18,15 +18,15 @@ def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
     parser.add_argument("--source",
                         type=str,
-                        default=os.path.join(base_dir, "data/source/730x576x2.jpg"),
+                        default=os.path.join(base_dir, "data/source/SummerForest.jpg"),
                         help="路径: 待转换的目标图像")
     parser.add_argument("--reference",
                         type=str,
-                        default=os.path.join(base_dir, "data/reference/grass.jpg"),
+                        default=os.path.join(base_dir, "data/reference/AutumnForest.jpg"),
                         help="路径: 风格参考图像")
     parser.add_argument("--output",
                         type=str,
-                        default=os.path.join(base_dir, "data/output/advanced_transferred_image2.png"),
+                        default=os.path.join(base_dir, "data/output/advanced_transferred_image3.png"),
                         help="路径: 结果图像保存路径")
     
     # 算法参数
