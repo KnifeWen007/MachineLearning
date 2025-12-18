@@ -32,5 +32,3 @@ conda-meta/
 tmp/
 temp/
 
-# 项目数据目录（包含源图像、参考图像和输出图像）
-knn_color_transfer/data/
