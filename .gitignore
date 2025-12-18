@@ -1,0 +1,36 @@
+# Python 编译文件和缓存
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE 相关文件
+.idea/
+.vscode/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Jupyter Notebook 检查点
+.ipynb_checkpoints
+
+# Python 环境文件
+.env
+.venv
+env/
+venv/
+
+# Conda 环境
+conda-meta/
+
+# 日志文件
+*.log
+
+# 临时文件
+tmp/
+temp/
+
+# 项目数据目录（包含源图像、参考图像和输出图像）
+knn_color_transfer/data/
